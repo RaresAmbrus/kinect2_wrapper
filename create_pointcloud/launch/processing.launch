@@ -1,0 +1,23 @@
+<launch>
+  <arg name="camera"   			default="camera" />
+  <arg name="manager" 			default="generate_pointcloud_manager_$(arg camera)" />
+  <arg name="rgb" 			default="$(arg camera)/rgb/image_raw" /> 
+  <arg name="depth" 			default="$(arg camera)/depth/image_raw" />
+  <arg name="rgb_camera_info" 		default="$(arg camera)/rgb/camera_info" /> 
+  <arg name="depth_camera_info" 	default="$(arg camera)/depth/camera_info" />  
+  <arg name="respawn" 			default="true" />  
+
+  <!-- Nodelet manager for this pipeline -->
+  <node pkg="nodelet" type="nodelet" args="manager" name="$(arg manager)" output="screen"/>
+   
+  <node pkg="nodelet" type="nodelet" name="generate_pointcloud_$(arg camera)"
+        args="load depth_image_proc/point_cloud_xyzrgb $(arg manager) --no-bond"
+        respawn="$(arg respawn)">
+	<remap from="rgb/camera_info" to="$(arg rgb_camera_info)"/>
+  	<remap from="rgb/image_rect_color" to="$(arg rgb)"/>    
+        <remap from="depth_registered/image_rect" to="$(arg depth)"/>    
+        <remap from="depth_registered/points" to="$(arg camera)/pointcloud"/>   
+  </node>
+
+</launch>
+

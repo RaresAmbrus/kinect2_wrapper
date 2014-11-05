@@ -1,0 +1,18 @@
+<launch>
+  <arg name="manager" 				default="manager" />
+  <arg name="camera"   				default="camera" />
+  <arg name="rgb"				default="$(arg camera)/rgb/image_raw" />
+  <arg name="depth"				default="$(arg camera)/depth/image_raw" />
+  <arg name="rgb_camera_info"   		default="$(arg camera)/rgb/camera_info" />
+  <arg name="depth_camera_info"			default="$(arg camera)/depth/camera_info" />
+
+  <include file="$(find create_pointcloud)/launch/processing.launch">
+    <arg name="camera" value="$(arg camera)" /> 
+    <arg name="manager" value="generate_pointcloud_manager_$(arg camera)" /> 
+    <arg name="rgb" value="$(arg rgb)" /> 
+    <arg name="depth" value="$(arg depth)" />
+    <arg name="rgb_camera_info" value="$(arg rgb_camera_info)" /> 
+    <arg name="depth_camera_info" value="$(arg depth_camera_info)" />  
+  </include>
+
+</launch>
