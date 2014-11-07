@@ -1,10 +1,10 @@
 <launch>
   <arg name="manager" 				default="manager" />
-  <arg name="camera"   				default="camera" />
-  <arg name="rgb"				default="$(arg camera)/rgb/image_raw" />
-  <arg name="depth"				default="$(arg camera)/depth/image_raw" />
-  <arg name="rgb_camera_info"   		default="$(arg camera)/rgb/camera_info" />
-  <arg name="depth_camera_info"			default="$(arg camera)/depth/camera_info" />
+  <arg name="camera"   				default="kinect2_head" />
+  <arg name="rgb"				default="$(arg camera)/rgb_lowres/image" />
+  <arg name="depth"				default="$(arg camera)/depth_lowres/image_raw" />
+  <arg name="rgb_camera_info"   		default="$(arg camera)/rgb_lowres/camera_info" />
+  <arg name="depth_camera_info"			default="$(arg camera)/depth_lowres/camera_info" />
 
   <include file="$(find create_pointcloud)/launch/processing.launch">
     <arg name="camera" value="$(arg camera)" /> 
